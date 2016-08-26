@@ -2,20 +2,7 @@
 {% block pageScripts %}
 <script>
 $(document).ready(function(){
-  $('#btnLogin').click(function() {
-    $.ajax({
-      type: "POST",
-      url: '{{ url_for('processLogin') }}',
-      data: {username: $('#username').val(), password:"0"},
-      //success: alert('ok')
-      //dataType: dataType
-      success: function(msg){
-        //alert(msg);   //Your resulting action
-        var obj = jQuery.parseJSON(msg);
-          $('#username').val(obj.username);
-      }
-    });
-  });
+  $('#username').focus();
 });
 </script>
 {% endblock %}
@@ -24,13 +11,11 @@ $(document).ready(function(){
   <h2>Login</h2>
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
   <!--form action="{{ url_for('processLogin') }}" method=post-->
-  <div>
-    <dl>
-      <dt>Username:
-      <dd><input type=text id="username" name=username value="{{model.username}}"">
-      <dt>Password:
-      <dd><input type=password name=password>
-      <dd><button id="btnLogin">Login</button>
-    </dl>
-  </div>
+  <form action="{{ url_for('processLogin') }}" method="POST">
+      <div>Username:</div>
+        <input type=text id="username" name=username value="{{model.username}}"" />
+      <div>Password:</div>
+        <input type=password name=password>
+      <input type="submit" value="Login"/>
+  </form>
 {% endblock %}
