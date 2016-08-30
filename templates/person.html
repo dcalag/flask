@@ -1,0 +1,26 @@
+<form ic-post-to="{{ url_for('processPerson') }}" ic-on-success="onSuccess()"
+  ic-replace-target="true" ic-on-error="onError()" ic-on-beforeSend="onBeforeSend()" >
+    <h2>Persona</h2>
+    <div id="mensajes"></div>
+    <div>Name:</div>
+    <input type=text id="name" name="name" value="{{model.name}}" />
+    <div>Age:</div>
+    <input type=text id="age" name="age" value="{{model.age}}" />
+    <input type="submit" value="Registrar"/>
+    <img style="display:none" id="loader" src="{{ url_for('static', filename='ajax-loader.gif') }}" />
+
+    <script>
+      function onSuccess(){
+        $('#mensajes').html('');
+      };
+
+      function onError(){
+        $('#mensajes').html('Error!');
+        $('#loader').hide();
+      }
+
+      function onBeforeSend(){
+        $('#loader').show();
+      }
+    </script>
+</form>
